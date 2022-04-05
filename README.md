@@ -1,4 +1,4 @@
-# OSFI_by_FineTuning
+# OSFI-by-FineTuning
 Official implementation for Open-set Face Identification on Few-shot Gallery by Fine-Tuning 
 
 ## Requirements
