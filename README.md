@@ -13,8 +13,6 @@ Download Pretrained Weights:
 In ```config.py``` change the ```encoder_config``` to the directory of the downloaded weights (.chkpt files).
 
 Download Face Datasets:
-- <a href="https://drive.google.com/file/d/1PthzzzuufDaJZwZE-YQNQBKs9L9b8TBs/view?usp=sharing" target="_blank">IJBC</a>
-- <a href="https://drive.google.com/file/d/1igvIRI7jVpg01e13HgZ4JibT0BI2GuhS/view?usp=sharing" target="_blank">CASIA_clean</a>  
 
 The images are already cropped using <a href="https://github.com/timesler/facenet-pytorch" target="_blank">MTCNN by timesler</a>.  
 In ```config.py``` change the ```data_config```:
