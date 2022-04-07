@@ -4,17 +4,17 @@ from model import ResNets_Adapt, VGGNets_Adapt
 
 
 
-def fetch(args, config, encoder_name, finetune_layers, train_output=False):
+def fetch(device, config, encoder_type, finetune_layers, train_output=False):
     adapt = True if finetune_layers == "PA" else False
-    if encoder_name == "VGG19":
+    if encoder_type == "VGG19":
         encoder = VGGNets_Adapt.VGG("VGG19", adapt=adapt)
-        chkpt = torch.load(config[encoder_name], map_location=args.device)
+        chkpt = torch.load(config[encoder_type], map_location=device)
 
-    elif encoder_name == "Res50":
+    elif encoder_type == "Res50":
         encoder = ResNets_Adapt.Resnet(50, drop_ratio=0.5, feat_dim=512, out_h=7, out_w=7, adapt=adapt)
-        chkpt = torch.load(config[encoder_name], map_location=args.device)
+        chkpt = torch.load(config[encoder_type], map_location=device)
     else:
-        raise ValueError(f"implementation for {encoder_name} is not ready yet")
+        raise ValueError(f"implementation for {encoder_type} is not ready yet")
 
     # load state dict
     if adapt:
@@ -27,14 +27,14 @@ def fetch(args, config, encoder_name, finetune_layers, train_output=False):
         encoder.eval()
         encoder.requires_grad_(False)  # freeze all parameters & set to eval mode
         if finetune_layers == "Partial":
-            if encoder_name == "VGG19":
+            if encoder_type == "VGG19":
                 for name, module in encoder.named_modules():
                     tokens = name.split(".")
                     # if len(tokens) > 1 and int(tokens[1]) >= 40:  # train only last 4 conv. layers
                     if len(tokens) > 1 and int(tokens[1]) >= 46:  # train only last 2 conv. layers
                         module.train()
                         module.requires_grad_(True)
-            elif encoder_name == "Res50":
+            elif encoder_type == "Res50":
                 for name, module in encoder.named_modules():
                     tokens = name.split(".")
                     # if ("22" in tokens) or ("23" in tokens):  # train only last 4 conv. layers
@@ -58,7 +58,7 @@ def fetch(args, config, encoder_name, finetune_layers, train_output=False):
             encoder.output_layer.requires_grad_(True)
             encoder.output_layer.train()
 
-    encoder.to(args.device)
+    encoder.to(device)
     return encoder
 
 
