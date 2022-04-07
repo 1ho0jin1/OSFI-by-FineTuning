@@ -12,21 +12,18 @@ Download Pretrained Weights:
 
 In ```config.py``` change the ```encoder_config``` to the directory of the downloaded weights (.chkpt files).
 
-Download Face Datasets:
+Download Dataset:
+- <a href="https://drive.google.com/file/d/1ByDgiUBTwx9Y2A1pnt8b3nYdIk_PLBfT/view?usp=sharing" target="_blank"> CASIA_subset</a>
 
+Above is a randomly chosen small subset of the CASIA-WebFace.  
 The images are already cropped using <a href="https://github.com/timesler/facenet-pytorch" target="_blank">MTCNN by timesler</a>.  
-In ```config.py``` change the ```data_config```:
-- ```known_pkl``` and ```unknown_pkl``` refers to the .pkl files that contain the known and unknown identities
-  - set these to the .pkl file in the dataset accordingly
-- ```G_data_dir```, ```K_data_dir``` and ```U_data_dir``` refers to the image directory for Gallery, Known and Unknown set respectively.
-  - For CASIA-WebFace, set all three to be **your_directory / CASIA_clean / cropped_images**
-  - For IJBC, set ```G_data_dir``` to **your_directory / IJBC / images_organized**
-  - ```K_data_dir``` and ```U_data_dir``` to **your_directory / IJBC / frames_organized**  
+To use your own face dataset, you can simply change the ```data_config``` in ```config.py```.  
+The face dataset must have the structure ```ROOT/NAME/image.jpg```.  
 
-Please refer to the given ```config.py``` format.  
 
 ## Usage
 After the setup is done, simply run:  
 ```python main.py --dataset='IJBC' --encoder='VGG19' --classifier_init='WI' --finetune_layers='BN'```  
 
-For further information on the arguments, please refer to our paper.
+For further information on the arguments, please refer to our paper.  
+If you want to reproduce the complete results of our paper, please contact: 2014142100@yonsei.ac.kr.
