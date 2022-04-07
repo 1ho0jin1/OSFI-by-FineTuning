@@ -1,5 +1,5 @@
 import config
-from dataset import Prep_CASIA_IJBC, face_dataset
+from dataset import Prep_CASIA_IJBC, open_set_folds, face_dataset
 from model import fetch_encoder, head
 from finetune import linear_probing, weight_imprinting, fine_tune
 from utils import save_dir_far_curve, save_dir_far_excel
@@ -43,17 +43,18 @@ parser.add_argument("--batch_size",default=128,type=int)
 parser.add_argument("--num_epochs",default=20,type=int,help="num_epochs for fine-tuning")
 
 # dataset arguments
-parser.add_argument("--dataset", default='IJBC', type=str, help="['CASIA','IJBC']")
-parser.add_argument("--num_gallery_imgs", type=int, default=3, help="number of gallery images per identity")
+parser.add_argument("--dataset", type=str, default='CASIA', help="['CASIA','IJBC']")
+parser.add_argument("--num_gallery", type=int, default=3, help="number of gallery images per identity")
+parser.add_argument("--num_probe", type=int, default=5, help="maximum number of probe images per identity")
 
 # encoder arguments
-parser.add_argument("--encoder", default='VGG19', type=str, help="['VGG19','Res50']")
-parser.add_argument("--head_type", default='cos', type=str, help="['arc', 'cos', 'mag']")
+parser.add_argument("--encoder", type=str, default='Res50', help="['VGG19','Res50']")
+parser.add_argument("--head_type", type=str, default='cos', help="['arc', 'cos', 'mag']")
 
 # main arguments: classifier init / finetune layers / matcher
 parser.add_argument("--classifier_init", type=str, default='WI',
                     help="['Random','LP','WI']")  # Random Init. / Linear Probing / Weight Imprinting
-parser.add_argument("--finetune_layers", type=str, default='BN',
+parser.add_argument("--finetune_layers", type=str, default='None',
                     help="['None','Full','Partial','PA','BN']")  # 'None' refers to no fine-tuning
 parser.add_argument("--matcher", type=str, default='NAC',
                     help="['org','NAC','EVM']")  # unused argument: refer to the results
@@ -106,23 +107,12 @@ def main(args):
 
     # prepare dataset: config
     data_config = config.data_config[args.dataset]
-
-    # set number of images per identity
-    data_config["G_interval"] = [0, args.num_gallery_imgs]
-    data_config["K_interval"] = [args.num_gallery_imgs, args.num_gallery_imgs+20]
-    data_config["U_interval"] = [0,20]
-
-    if args.dataset == "CASIA" or args.dataset == "IJBC":
-        folds = Prep_CASIA_IJBC(data_config["G_data_dir"],data_config["K_data_dir"], data_config["U_data_dir"],
-                                data_config["G_interval"],data_config["K_interval"], data_config["U_interval"],
-                                data_config["known_pkl"], data_config["unknown_pkl"])
-    else:
-        raise ValueError('The dataset is not prepared!')
+    folds = open_set_folds(data_config["image_directory"], args.num_gallery, args.num_probe)
 
     '''
     data preparation
     '''
-    num_cls = folds.num_known_classes
+    num_cls = folds.num_known
     train_trf = transforms.Compose([
         transforms.RandomResizedCrop(size=112, scale=(0.7, 1.)),
         transforms.RandomHorizontalFlip(),
