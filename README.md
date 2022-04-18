@@ -16,7 +16,7 @@ Download Dataset:
 Above is a randomly chosen small subset of the CASIA-WebFace.  
 The images are already cropped using <a href="https://github.com/timesler/facenet-pytorch" target="_blank">MTCNN by timesler</a>.  
 To use your own face dataset, you can simply change the ```data_config``` in ```config.py```.  
-The face dataset must have the structure ```ROOT/NAME/image.jpg```.  
+The face dataset must have the structure ```ROOT/SUBJECT_NAME/image.jpg```.  
 
 After downloading, change the ```dataset_config``` and ```encoder_config``` in ```config.py``` accordingly.
 
