@@ -22,7 +22,7 @@ After downloading, change the ```dataset_config``` and ```encoder_config``` in `
 
 ## Usage
 After the setup is done, simply run:  
-```python main.py --dataset='IJBC' --encoder='VGG19' --classifier_init='WI' --finetune_layers='BN'```  
+```python main.py --dataset='CASIA' --encoder='VGG19' --classifier_init='WI' --finetune_layers='BN'```  
 
 For further information on the arguments, please refer to our paper.  
 If you want to reproduce the complete results of our paper, please contact: 2014142100@yonsei.ac.kr.
