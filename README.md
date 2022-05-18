@@ -1,5 +1,5 @@
 # OSFI-by-FineTuning
-Official implementation for Open-set Face Identification on Few-shot Gallery by Fine-Tuning 
+Official implementation for Open-set Face Identification on Few-shot Gallery by Fine-Tuning (ICPR 2022)
 
 ## Requirements
 - Pytorch 1.7.1
