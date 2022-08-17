@@ -1,7 +1,16 @@
 # OSFI-by-FineTuning
 Official implementation for Open-set Face Identification on Few-shot Gallery by Fine-Tuning. <br/>
 To appear on 2022 ICPR (International Conference on Pattern Recognition)
-<img src = "https://github.com/1ho0jin1/OSFI-by-FineTuning/blob/main/fig_pipeline.png" width="80%" height="80%">
+<img src = "https://user-images.githubusercontent.com/60504706/185028026-6d9abe0f-7bfc-4b6f-a369-467a2418dbf6.png" width="65%" height="65%">
+
+## ICPR2022 Presentation
+https://user-images.githubusercontent.com/60504706/185032003-813d3b5e-53c7-405f-bae1-017364d5615d.mp4
+
+
+
+
+
+
 
 ## Requirements
 - Pytorch 1.7.1
@@ -26,5 +35,4 @@ After downloading, change the ```dataset_config``` and ```encoder_config``` in `
 After the setup is done, simply run:  
 ```python main.py --dataset='CASIA' --encoder='VGG19' --classifier_init='WI' --finetune_layers='BN'```  
 
-For further information on the arguments, please refer to our paper.  
-If you want to reproduce the complete results of our paper, please contact: 2014142100@yonsei.ac.kr.
+For further information on the arguments, please refer to our paper.
