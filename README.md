@@ -1,6 +1,6 @@
 # OSFI-by-FineTuning
 Official implementation for Open-set Face Identification on Few-shot Gallery by Fine-Tuning. <br/>
-To appear on 2022 ICPR (International Conference on Pattern Recognition)
+Published on 2022 ICPR (International Conference on Pattern Recognition). [Paper](https://ieeexplore.ieee.org/document/9956714)
 <img src = "https://user-images.githubusercontent.com/60504706/185028026-6d9abe0f-7bfc-4b6f-a369-467a2418dbf6.png" width="65%" height="65%">
 
 ## ICPR2022 Presentation
