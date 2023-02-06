@@ -18,11 +18,11 @@ https://user-images.githubusercontent.com/60504706/185032003-813d3b5e-53c7-405f-
 
 ## Setup
 Download Pretrained Weights:
-- <a href="https://drive.google.com/file/d/1iCc9f0SzHpV6wFgaddApp12DyfTrtuBw/view?usp=share_link" target="_blank">VGGNet-19</a>
-- <a href="https://drive.google.com/file/d/1lpICyc_5DhgAcNPfIkqK7nI865EW8YN7/view?usp=share_link" target="_blank">ResNet-50</a>
+- <a href="https://drive.google.com/file/d/1lSOQiNIT1in0bDv2JlpJq9FIxMVFlfmf/view?usp=share_link" target="_blank">VGGNet-19</a>
+- <a href="https://drive.google.com/file/d/1Y4xrYKl8GafGDvmT5FBUmnYnhxE0LWbX/view?usp=share_link" target="_blank">ResNet-50</a>
 
 Download Dataset:
-- <a href="https://drive.google.com/file/d/1w76N5twe7RZNYGYj6D51YTQWcA0DZrSp/view?usp=share_link" target="_blank"> CASIA-WebFace</a>
+- <a href="https://drive.google.com/file/d/1j7fY_fnzESuyIel_f6Z8rZ9ehRuuX0ei/view?usp=share_link" target="_blank"> CASIA-WebFace</a>
 
 Above is the CASIA-WebFace dataset. The images are already cropped using <a href="https://github.com/timesler/facenet-pytorch" target="_blank">MTCNN by timesler</a>.  
 To use your own face dataset, you can simply change the ```data_config``` in ```config.py```.  
