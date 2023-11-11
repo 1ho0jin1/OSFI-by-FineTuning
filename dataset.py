@@ -10,11 +10,11 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class open_set_folds():
     def __init__(self, image_directory, num_gallery, num_probe, known_ratio=0.5):
-        id_list = os.listdir(image_directory)
-        id_list = np.random.permutation(id_list).tolist()  # randomly shuffle
-        num_known = int(len(id_list) * known_ratio)
-        known_list = id_list[:num_known]
-        unknown_list = id_list[num_known:]
+        with open(known_list_path, 'rb') as fp:
+            known_list = pickle.load(fp)
+        with open(unknown_list_path, 'rb') as fp:
+            unknown_list = pickle.load(fp)
+        num_known = len(known_list)
 
         # Gallery, Known Probe, Unknown Probe set
         self.G, self.K, self.U = [], [], []
@@ -62,47 +62,3 @@ class face_dataset(Dataset):
             image = image.convert("RGB")
         image = self.transform(image)
         return image, label
-
-
-    
-
-
-class Prep_CASIA_IJBC(object):
-    """
-    interval: interval of images to be used
-       ex) [9,12] means we'll be using 9,10,11-th image of that person
-    """
-    def __init__(self, G_data_dir, K_data_dir, U_data_dir,
-                 G_interval, K_interval, U_interval, known_split, unknown_split):
-        with open(known_split,"rb") as fp:
-            self.knowns = pickle.load(fp)
-        with open(unknown_split,"rb") as fp:
-            self.unknowns = pickle.load(fp)
-        self.num_known_classes = len(self.knowns)
-        self.num_unknown_classes = len(self.unknowns)
-        self.G, self.K, self.U = [], [], []
-        Gs, Ge = G_interval
-        Ks, Ke = K_interval
-        Us, Ue = U_interval
-        for Gid, name in enumerate(self.knowns):
-            name_dir = os.path.join(G_data_dir, name)
-            img_list = sorted(os.listdir(name_dir))
-            for cnt, img_name in enumerate(img_list):
-                if cnt in range(Gs, Ge):
-                    img_dir = os.path.join(name_dir, img_name)
-                    self.G.append((img_dir,Gid))
-        for Kid, name in enumerate(self.knowns):
-            name_dir = os.path.join(K_data_dir, name)
-            img_list = sorted(os.listdir(name_dir))
-            for cnt, img_name in enumerate(img_list):
-                if cnt in range(Ks, Ke):
-                    img_dir = os.path.join(name_dir, img_name)
-                    self.K.append((img_dir,Kid))
-        for name in self.unknowns:
-            name_dir = os.path.join(U_data_dir, name)
-            img_list = sorted(os.listdir(name_dir))
-            for cnt, img_name in enumerate(img_list):
-                if cnt in range(Us, Ue):
-                    img_dir = os.path.join(name_dir, img_name)
-                    self.U.append((img_dir,self.num_known_classes))
-        self.P = self.K + self.U
