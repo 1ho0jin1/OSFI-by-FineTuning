@@ -9,7 +9,7 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 class open_set_folds():
-    def __init__(self, image_directory, num_gallery, num_probe, known_ratio=0.5):
+    def __init__(self, image_directory, known_list_path, unknown_list_path, num_gallery, num_probe):
         with open(known_list_path, 'rb') as fp:
             known_list = pickle.load(fp)
         with open(unknown_list_path, 'rb') as fp:

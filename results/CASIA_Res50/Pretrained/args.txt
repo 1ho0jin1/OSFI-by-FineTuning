@@ -1,0 +1,19 @@
+{
+  "device_id": 0,
+  "lr": 0.001,
+  "batch_size": 128,
+  "num_epochs": 20,
+  "dataset": "CASIA",
+  "num_gallery": 3,
+  "num_probe": 5,
+  "encoder": "Res50",
+  "head_type": "cos",
+  "classifier_init": "WI",
+  "finetune_layers": "None",
+  "matcher": "NAC",
+  "arc_s": 32,
+  "arc_m": 0.4,
+  "cos_m": 0.4,
+  "train_output": false,
+  "device": "cuda:0"
+}

@@ -10,6 +10,6 @@ data_config = {
 }
 
 encoder_config = {
-    "VGG19": "/data/New_Projects/OSFI/model/VGG19_CosFace.chkpt",
-    "Res50": "/data/New_Projects/OSFI/model/ResIR50_CosFace.chkpt",
+    "VGG19": "",
+    "Res50": "C:\\Users\\USER\\Downloads\\ResIR50_CosFace.chkpt",
 }

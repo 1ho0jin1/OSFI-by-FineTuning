@@ -1,5 +1,5 @@
 import config
-from dataset import Prep_CASIA_IJBC, open_set_folds, face_dataset
+from dataset import open_set_folds, face_dataset
 from model import fetch_encoder, head
 from finetune import linear_probing, weight_imprinting, fine_tune
 from utils import save_dir_far_curve, save_dir_far_excel
@@ -87,15 +87,13 @@ def main(args):
     args.device = torch.device(args.device_id)
 
     # result save directory
-    if not os.path.exists(f'results/{args.dataset}_{args.encoder}'):
-        os.mkdir(f'results/{args.dataset}_{args.encoder}')
+    os.makedirs(f'results/{args.dataset}_{args.encoder}', exist_ok=True)
     if args.finetune_layers == 'None':
         exp_name = 'Pretrained'
     else:
         exp_name = f'{args.classifier_init}_{args.finetune_layers}'
     save_dir = f'results/{args.dataset}_{args.encoder}/{exp_name}'
-    if not os.path.exists(save_dir):
-        os.mkdir(save_dir)
+    os.makedirs(save_dir, exist_ok=True)
     print("results are saved at: ", save_dir)
 
     # save arguments
@@ -107,7 +105,8 @@ def main(args):
 
     # prepare dataset: config
     data_config = config.data_config[args.dataset]
-    folds = open_set_folds(data_config["image_directory"], args.num_gallery, args.num_probe)
+    folds = open_set_folds(data_config["image_directory"], data_config["known_list_path"],
+                           data_config["unknown_list_path"], args.num_gallery, args.num_probe)
 
     '''
     data preparation
